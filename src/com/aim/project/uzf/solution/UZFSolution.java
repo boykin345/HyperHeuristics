@@ -8,43 +8,36 @@ import com.aim.project.uzf.interfaces.SolutionRepresentationInterface;
  * @since 1.0.0 (22/03/2024)
  */
 public class UZFSolution implements UAVSolutionInterface {
-	
+	private SolutionRepresentationInterface representation;
+	private int objectiveFunctionValue;
+
 	public UZFSolution(SolutionRepresentationInterface representation, int objectiveFunctionValue) {
-		
-		
+		this.representation = representation;
+		this.objectiveFunctionValue = objectiveFunctionValue;
 	}
 
 	@Override
 	public int getObjectiveFunctionValue() {
-
-		// TODO
-		return -1;
+		return this.objectiveFunctionValue;
 	}
 
 	@Override
 	public void setObjectiveFunctionValue(int objectiveFunctionValue) {
-		
-		// TODO
+		this.objectiveFunctionValue = objectiveFunctionValue;
 	}
 
 	@Override
 	public SolutionRepresentationInterface getSolutionRepresentation() {
-		
-		// TODO
-		return null;
+		return this.representation;
 	}
 	
 	@Override
 	public UAVSolutionInterface clone() {
-		
-		// TODO
-		return null;
+		return new UZFSolution(this.representation.clone(), this.objectiveFunctionValue);
 	}
 
 	@Override
 	public int getNumberOfLocations() {
-		
-		// TODO
-		return -1;
+		return this.representation.getNumberOfLocations();
 	}
 }
