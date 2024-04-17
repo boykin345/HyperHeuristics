@@ -15,6 +15,8 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 
 
 
+	private int memorySize;
+
 	public UZFDomain(long seed) {
 		
 		// TODO - set default memory size and create the array of low-level heuristics
@@ -123,8 +125,10 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 
 	@Override
 	public void setMemorySize(int size) {
-
-		// TODO
+		if (size < 0) {
+			throw new IllegalArgumentException("Memory size cannot be negative");
+		}
+		this.memorySize = size;
 	}
 
 	@Override
