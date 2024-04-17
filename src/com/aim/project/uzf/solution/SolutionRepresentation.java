@@ -7,37 +7,33 @@ import com.aim.project.uzf.interfaces.SolutionRepresentationInterface;
  * @since 1.0.0 (22/03/2024)
  */
 public class SolutionRepresentation implements SolutionRepresentationInterface {
+	private int[] solutionRepresentation;
+    private int numberOfLocations;
 
-	public SolutionRepresentation(int[] aiRepresentation) {
 
+    public SolutionRepresentation(int[] solutionRepresentation, int numberOfLocations) {
+        this.solutionRepresentation = solutionRepresentation;
+        this.numberOfLocations = numberOfLocations;
+    }
 
-	}
+    @Override
+    public int[] getSolutionRepresentation() {
+        return this.solutionRepresentation;
+    }
 
-	@Override
-	public int[] getSolutionRepresentation() {
+    @Override
+    public void setSolutionRepresentation(int[] solutionRepresentation) {
+        this.solutionRepresentation = solutionRepresentation;
+    }
 
-		// TODO
-		return null;
-	}
+    @Override
+    public int getNumberOfLocations() {
+        return this.numberOfLocations;
+    }
 
-	@Override
-	public void setSolutionRepresentation(int[] aiSolutionRepresentation) {
-
-		// TODO
-	}
-
-	@Override
-	public int getNumberOfLocations() {
-
-		// TODO
-		return -1;
-	}
-
-	@Override
-	public SolutionRepresentationInterface clone() {
-
-		// TODO
-		return null;
-	}
+    @Override
+    public SolutionRepresentationInterface clone() {
+        return new SolutionRepresentation(this.solutionRepresentation.clone(), this.numberOfLocations);
+    }
 
 }
