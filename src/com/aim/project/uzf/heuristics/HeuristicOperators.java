@@ -30,6 +30,14 @@ public class HeuristicOperators {
 		java.util.Collections.shuffle(Arrays.asList(permutation));
 		return permutation;
 	}
+
+	protected int calculateReinsertions(double intensityOfMutation) {
+        if (intensityOfMutation < 0.2) return 1;
+        else if (intensityOfMutation < 0.4) return 2;
+        else if (intensityOfMutation < 0.6) return 3;
+        else if (intensityOfMutation < 0.8) return 4;
+        else return 5;
+    }
 	
 
 	public HeuristicOperators(Random random) {

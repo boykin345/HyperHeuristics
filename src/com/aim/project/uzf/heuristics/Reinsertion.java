@@ -33,9 +33,7 @@ public class Reinsertion extends HeuristicOperators implements HeuristicInterfac
 
 	@Override
 	public boolean usesIntensityOfMutation() {
-
-		// TODO
-		return random.nextBoolean();
+		return true;
 	}
 
 	@Override
