@@ -1,5 +1,6 @@
 package com.aim.project.uzf.heuristics;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import com.aim.project.uzf.interfaces.ObjectiveFunctionInterface;
@@ -21,9 +22,25 @@ public class HeuristicOperators {
 
 	protected final Random random;
 
+	public int[] createRandomPermutation (int length) {
+		int[] permutation = new int[length];
+		for (int i = 0; i < length; i++) {
+			permutation[i] = i;
+		}
+		java.util.Collections.shuffle(Arrays.asList(permutation));
+		return permutation;
+	}
+	
+
 	public HeuristicOperators(Random random) {
 
 		this.random = random;
+	}
+
+	public void swapLocations(int[] solution, int i, int j) {
+		int temp = solution[i];
+		solution[i] = solution[j];
+		solution[j] = temp;
 	}
 
 	public void setObjectiveFunction(ObjectiveFunctionInterface f) {

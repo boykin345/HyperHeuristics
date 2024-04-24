@@ -1,6 +1,7 @@
 package com.aim.project.uzf;
 
 import com.aim.project.uzf.instance.Location;
+import com.aim.project.uzf.interfaces.HeuristicInterface;
 import com.aim.project.uzf.interfaces.UAVSolutionInterface;
 import com.aim.project.uzf.interfaces.UZFInstanceInterface;
 import com.aim.project.uzf.interfaces.Visualisable;
@@ -16,12 +17,14 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 
 
 	private int memorySize;
+	private HeuristicInterface[] heuristics;
 
 	public UZFDomain(long seed) {
 		
 		// TODO - set default memory size and create the array of low-level heuristics
 		super(seed);
-		
+		this.memorySize = 12;
+        this.heuristics = new HeuristicInterface[memorySize]; 
 	}
 	
 	@Override
@@ -65,7 +68,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 	public double getBestSolutionValue() {
 
 		// TODO
-		return -1;
+		return 0;
 	}
 	
 	@Override
@@ -98,9 +101,8 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 
 	@Override
 	public int getNumberOfHeuristics() {
-
 		// TODO - has to be hard-coded due to the design of the HyFlex framework
-		return -1;
+		return heuristics.length;
 	}
 
 	@Override
