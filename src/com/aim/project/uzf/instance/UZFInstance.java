@@ -40,37 +40,36 @@ public class UZFInstance implements UZFInstanceInterface {
 
 	@Override
 	public ObjectiveFunctionInterface getUZFObjectiveFunction() {
-
-		// TODO
-		return null;
+		return this.oObjectiveFunction;
 	}
 
 	@Override
 	public int getNumberOfLocations() {
-
-		// TODO
-		return -1;
+		return this.numberOfLocations;
 	}
 
 	@Override
 	public Location getLocationForEnclosure(int iEnclosureId) {
-
-		// TODO
-		return null;
+		if (iEnclosureId >= 0 && iEnclosureId < aoLocations.length) {
+			return aoLocations[iEnclosureId];
+		} else {
+			throw new IndexOutOfBoundsException("Invalid enclosure ID: " + iEnclosureId);
+		}
 	}
 
 	@Override
 	public Location getLocationOfFoodPreparationArea() {
-
-		// TODO
-		return null;
+		return this.foodPreparationLocation;
 	}
 
 	@Override
 	public ArrayList<Location> getSolutionAsListOfLocations(UAVSolutionInterface oSolution) {
-
-		// TODO
-		return null;
+		int[] solutionRepresentation = oSolution.getSolutionRepresentation().getSolutionRepresentation();
+		ArrayList<Location> locations = new ArrayList<>(solutionRepresentation.length);
+		for (int i = 0; i < solutionRepresentation.length; i++) {
+			locations.add(aoLocations[solutionRepresentation[i]]);
+		}
+		return locations;
 	}
 
 }

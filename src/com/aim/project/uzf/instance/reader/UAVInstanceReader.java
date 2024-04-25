@@ -18,18 +18,19 @@ import com.aim.project.uzf.interfaces.UAVInstanceReaderInterface;
  */
 public class UAVInstanceReader implements UAVInstanceReaderInterface {
 
+	public String name = null;
+	public String comment = null;
+	public int[] preparationArea = null;
+	public List<int[]> enclosureLocations = new ArrayList<>();
+
 	@Override
 	public UZFInstanceInterface readUZFInstance(Path path, Random random) {
 		try {
 			Scanner scanner = new Scanner(new File(path.toString()));
-			String name = null;
-			String comment = null;
-			int[] preparationArea = null;
-			List<int[]> enclosureLocations = new ArrayList<>();
-	
+
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine().trim();
-	
+
 				if (line.startsWith("NAME :")) {
 					name = line.substring(6).trim();
 				} else if (line.startsWith("COMMENT :")) {
