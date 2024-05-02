@@ -19,7 +19,7 @@ public class AdjacentSwap extends HeuristicOperators implements HeuristicInterfa
 	@Override
 	public int apply(UAVSolutionInterface solution, double depthOfSearch, double intensityOfMutation) {
 		int numberOfSwaps;
-	
+
 		if (intensityOfMutation >= 0.0 && intensityOfMutation < 0.2) {
 			numberOfSwaps = 1;
 		} else if (intensityOfMutation >= 0.2 && intensityOfMutation < 0.4) {
@@ -35,36 +35,29 @@ public class AdjacentSwap extends HeuristicOperators implements HeuristicInterfa
 		} else {
 			throw new IllegalArgumentException("Intensity of mutation must be between 0.0 and 1.0");
 		}
-	
+
 		for (int i = 0; i < numberOfSwaps; i++) {
 			int index = random.nextInt(solution.getNumberOfLocations());
-			swapLocations(solution.getSolutionRepresentation().getSolutionRepresentation(), index, (index + 1) % solution.getNumberOfLocations());
+			swapLocations(solution.getSolutionRepresentation().getSolutionRepresentation(), index,
+					(index + 1) % solution.getNumberOfLocations());
 		}
-	
-		return numberOfSwaps;
+
+		return solution.getObjectiveFunctionValue();
 	}
-
-
 
 	@Override
 	public boolean isCrossover() {
-
-		// TODO
-		return random.nextBoolean();
+		return false;
 	}
 
 	@Override
 	public boolean usesIntensityOfMutation() {
-
-		// TODO
-		return random.nextBoolean();
+		return true;
 	}
 
 	@Override
 	public boolean usesDepthOfSearch() {
-
-		// TODO
-		return random.nextBoolean();
+		return false;
 	}
 
 }

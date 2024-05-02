@@ -3,7 +3,6 @@ package com.aim.project.uzf.heuristics;
 import java.util.Random;
 
 import com.aim.project.uzf.interfaces.HeuristicInterface;
-import com.aim.project.uzf.interfaces.ObjectiveFunctionInterface;
 import com.aim.project.uzf.interfaces.UAVSolutionInterface;
 
 public class SteepestDecent extends HeuristicOperators implements HeuristicInterface {
@@ -38,7 +37,7 @@ public class SteepestDecent extends HeuristicOperators implements HeuristicInter
                 }
             }
         }
-        return numOfSwaps;
+        return oSolution.getObjectiveFunctionValue();
     }
 
     @Override
@@ -57,12 +56,6 @@ public class SteepestDecent extends HeuristicOperators implements HeuristicInter
     public boolean usesDepthOfSearch() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'usesDepthOfSearch'");
-    }
-
-    @Override
-    public void setObjectiveFunction(ObjectiveFunctionInterface oObjectiveFunction) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setObjectiveFunction'");
     }
 
 }

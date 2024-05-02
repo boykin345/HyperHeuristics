@@ -15,7 +15,7 @@ public class PMX implements XOHeuristicInterface {
 	private final Random random;
 
 	public PMX(Random random) {
-		
+
 		this.random = random;
 	}
 
@@ -27,7 +27,8 @@ public class PMX implements XOHeuristicInterface {
 	}
 
 	@Override
-	public double apply(UAVSolutionInterface p1, UAVSolutionInterface p2, UAVSolutionInterface c, double depthOfSearch, double intensityOfMutation) {
+	public double apply(UAVSolutionInterface p1, UAVSolutionInterface p2, UAVSolutionInterface c, double depthOfSearch,
+			double intensityOfMutation) {
 
 		// TODO
 		return -1;
@@ -41,9 +42,7 @@ public class PMX implements XOHeuristicInterface {
 
 	@Override
 	public boolean isCrossover() {
-
-		// TODO
-		return random.nextBoolean();
+		return true;
 	}
 
 	@Override

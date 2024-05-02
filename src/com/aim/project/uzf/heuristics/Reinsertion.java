@@ -11,7 +11,6 @@ import com.aim.project.uzf.interfaces.UAVSolutionInterface;
  */
 public class Reinsertion extends HeuristicOperators implements HeuristicInterface {
 
-
 	public Reinsertion(Random random) {
 
 		super(random);
@@ -26,9 +25,7 @@ public class Reinsertion extends HeuristicOperators implements HeuristicInterfac
 
 	@Override
 	public boolean isCrossover() {
-
-		// TODO
-		return random.nextBoolean();
+		return false;
 	}
 
 	@Override
@@ -38,9 +35,7 @@ public class Reinsertion extends HeuristicOperators implements HeuristicInterfac
 
 	@Override
 	public boolean usesDepthOfSearch() {
-
-		// TODO
-		return random.nextBoolean();
+		return false;
 	}
 
 }
