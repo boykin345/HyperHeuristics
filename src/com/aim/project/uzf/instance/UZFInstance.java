@@ -1,6 +1,5 @@
 package com.aim.project.uzf.instance;
 
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -23,7 +22,7 @@ public class UZFInstance implements UZFInstanceInterface {
 	private Location foodPreparationLocation;
 	private int numberOfLocations;
 	private ObjectiveFunctionInterface oObjectiveFunction;
-	
+
 	public UZFInstance(int numberOfLocations, Location[] aoLocations, Location foodPreparationLocation, Random random) {
 
 		this.random = random;
@@ -34,7 +33,7 @@ public class UZFInstance implements UZFInstanceInterface {
 
 	@Override
 	public UZFSolution createSolution(InitialisationMode mode) {
-		if(mode == InitialisationMode.RANDOM) {
+		if (mode == InitialisationMode.RANDOM) {
 			int[] solutionRepresentation = new int[numberOfLocations];
 			SolutionRepresentationInterface sol = new SolutionRepresentation(solutionRepresentation, numberOfLocations);
 			for (int i = 0; i < numberOfLocations; i++) {
@@ -47,8 +46,7 @@ public class UZFInstance implements UZFInstanceInterface {
 				solutionRepresentation[j] = temp;
 			}
 			return new UZFSolution(sol, oObjectiveFunction.getObjectiveFunctionValue(sol));
-		}
-		else if(mode == InitialisationMode.CONSTRUCTIVE) {
+		} else if (mode == InitialisationMode.CONSTRUCTIVE) {
 			int[] solutionRepresentation = new int[numberOfLocations];
 			SolutionRepresentationInterface sol = new SolutionRepresentation(solutionRepresentation, numberOfLocations);
 			for (int i = 0; i < numberOfLocations; i++) {
@@ -56,7 +54,8 @@ public class UZFInstance implements UZFInstanceInterface {
 			}
 			for (int i = 0; i < numberOfLocations - 1; i++) {
 				int minIndex = i + 1;
-				double minDistance = oObjectiveFunction.getCost(solutionRepresentation[i], solutionRepresentation[minIndex]);
+				double minDistance = oObjectiveFunction.getCost(solutionRepresentation[i],
+						solutionRepresentation[minIndex]);
 				for (int j = i + 2; j < numberOfLocations; j++) {
 					double distance = oObjectiveFunction.getCost(solutionRepresentation[i], solutionRepresentation[j]);
 					if (distance < minDistance) {
@@ -64,19 +63,16 @@ public class UZFInstance implements UZFInstanceInterface {
 						minIndex = j;
 					}
 				}
-				
+
 				int temp = solutionRepresentation[i + 1];
 				solutionRepresentation[i + 1] = solutionRepresentation[minIndex];
 				solutionRepresentation[minIndex] = temp;
 			}
 			return new UZFSolution(sol, oObjectiveFunction.getObjectiveFunctionValue(sol));
-			}
-		else {
+		} else {
 			throw new IllegalArgumentException("Invalid initialisation mode: " + mode);
 		}
-		}
-
-
+	}
 
 	@Override
 	public ObjectiveFunctionInterface getUZFObjectiveFunction() {
