@@ -33,7 +33,7 @@ public class UZFSolution implements UAVSolutionInterface {
 	
 	@Override
 	public UAVSolutionInterface clone() {
-		return new UZFSolution(this.representation.clone(), this.objectiveFunctionValue);
+		return new UZFSolution(this.representation, this.objectiveFunctionValue);
 	}
 
 	@Override
