@@ -31,7 +31,6 @@ public class NextDescent extends HeuristicOperators implements HeuristicInterfac
 			iterations = 5;
 		}
 
-		int totalSwaps = 0;
 		for (int i = 0; i < iterations; i++) {
 			int start = random.nextInt(solution.getNumberOfLocations());
 			for (int j = 0; j < solution.getNumberOfLocations(); j++) {
@@ -41,7 +40,6 @@ public class NextDescent extends HeuristicOperators implements HeuristicInterfac
 						(index + 1) % solution.getNumberOfLocations());
 				double newObjectiveValue = solution.getObjectiveFunctionValue();
 				if (newObjectiveValue < currentObjectiveValue) {
-					totalSwaps++;
 					break;
 				} else {
 					swapLocations(solution.getSolutionRepresentation().getSolutionRepresentation(), index,

@@ -17,11 +17,9 @@ public class SteepestDecent extends HeuristicOperators implements HeuristicInter
         boolean improved = false;
         int length = oSolution.getNumberOfLocations();
         int bestI = 0;
-        int numOfSwaps = 0;
         for (int i = 0; i < length; i++) {
             for (int j = i + 1; j < length; j++) {
                 swapLocations(oSolution.getSolutionRepresentation().getSolutionRepresentation(), i, j);
-                numOfSwaps++;
                 int eval = oSolution.getObjectiveFunctionValue();
                 if (eval < bestEval) {
                     bestEval = eval;
@@ -29,10 +27,8 @@ public class SteepestDecent extends HeuristicOperators implements HeuristicInter
                     improved = true;
                 }
                 swapLocations(oSolution.getSolutionRepresentation().getSolutionRepresentation(), i, j);
-                numOfSwaps++;
                 if (improved) {
                     swapLocations(oSolution.getSolutionRepresentation().getSolutionRepresentation(), i, bestI);
-                    numOfSwaps++;
                     improved = false;
                 }
             }

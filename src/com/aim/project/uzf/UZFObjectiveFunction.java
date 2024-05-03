@@ -5,15 +5,15 @@ import com.aim.project.uzf.interfaces.ObjectiveFunctionInterface;
 import com.aim.project.uzf.interfaces.UZFInstanceInterface;
 import com.aim.project.uzf.interfaces.SolutionRepresentationInterface;
 
-
 /**
  * @author Warren G Jackson
  * @since 1.0.0 (22/03/2024)
  */
 public class UZFObjectiveFunction implements ObjectiveFunctionInterface {
+	private final UZFInstanceInterface oInstance;
 
 	public UZFObjectiveFunction(UZFInstanceInterface oInstance) {
-		
+		this.oInstance = oInstance;
 	}
 
 	@Override
@@ -21,7 +21,7 @@ public class UZFObjectiveFunction implements ObjectiveFunctionInterface {
 
 		return -1;
 	}
-	
+
 	public int getCost(Location oLocationA, Location oLocationB) {
 
 		return -1;
@@ -35,7 +35,7 @@ public class UZFObjectiveFunction implements ObjectiveFunctionInterface {
 
 	@Override
 	public int getCostBetweenFoodPreparationAreaAnd(int iLocation) {
-		
+
 		return -1;
 	}
 
