@@ -7,9 +7,8 @@ import com.aim.project.uzf.interfaces.SolutionRepresentationInterface;
  * @since 1.0.0 (22/03/2024)
  */
 public class SolutionRepresentation implements SolutionRepresentationInterface {
-	private int[] solutionRepresentation;
+    private int[] solutionRepresentation;
     private int numberOfLocations;
-
 
     public SolutionRepresentation(int[] solutionRepresentation, int numberOfLocations) {
         this.solutionRepresentation = solutionRepresentation;
@@ -28,7 +27,7 @@ public class SolutionRepresentation implements SolutionRepresentationInterface {
 
     @Override
     public int getNumberOfLocations() {
-        return this.numberOfLocations;
+        return numberOfLocations;
     }
 
     @Override

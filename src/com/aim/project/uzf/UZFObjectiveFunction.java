@@ -22,21 +22,30 @@ public class UZFObjectiveFunction implements ObjectiveFunctionInterface {
 		return -1;
 	}
 
-	public int getCost(Location oLocationA, Location oLocationB) {
-
-		return -1;
+	public double getCost(Location oLocationA, Location oLocationB) {
+		int a1x = oLocationA.x();
+		int a1y = oLocationA.y();
+		int a2x = oLocationB.x();
+		int a2y = oLocationB.y();
+		return Math.sqrt(Math.pow(a1x - a2x, 2) + Math.pow(a1y - a2y, 2));
 	}
 
 	@Override
 	public int getCost(int iLocationA, int iLocationB) {
-
-		return -1;
+		Location locationA = oInstance.getLocationForEnclosure(iLocationA);
+		Location locationB = oInstance.getLocationForEnclosure(iLocationB);
+		return (int) getCost(locationA, locationB);
 	}
 
 	@Override
 	public int getCostBetweenFoodPreparationAreaAnd(int iLocation) {
-
-		return -1;
+		Location foodPreparationArea = oInstance.getLocationOfFoodPreparationArea();
+		int a1x = foodPreparationArea.x();
+		int a1y = foodPreparationArea.y();
+		Location location = oInstance.getLocationForEnclosure(iLocation);
+		int a2x = location.x();
+		int a2y = location.y();
+		return (int) Math.sqrt(Math.pow(a1x - a2x, 2) + Math.pow(a1y - a2y, 2));
 	}
 
 }
