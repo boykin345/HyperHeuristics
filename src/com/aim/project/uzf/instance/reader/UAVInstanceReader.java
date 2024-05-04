@@ -44,7 +44,7 @@ public class UAVInstanceReader implements UAVInstanceReaderInterface {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return new UZFInstance(locations.size() + 1, locations.toArray(new Location[0]), foodPreparationLocation,
+		return new UZFInstance(locations.size(), locations.toArray(new Location[0]), foodPreparationLocation,
 				random);
 	}
 }

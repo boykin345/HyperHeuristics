@@ -18,8 +18,18 @@ public class UZFObjectiveFunction implements ObjectiveFunctionInterface {
 
 	@Override
 	public int getObjectiveFunctionValue(SolutionRepresentationInterface oSolution) {
+		int[] locations = oSolution.getSolutionRepresentation();
+		int totalDistance = 0;
 
-		return -1;
+		totalDistance += getCostBetweenFoodPreparationAreaAnd(locations[0]);
+
+		for (int i = 1; i < locations.length; i++) {
+			totalDistance += getCost(locations[i - 1], locations[i]);
+		}
+
+		totalDistance += getCostBetweenFoodPreparationAreaAnd(locations[locations.length - 1]);
+
+		return totalDistance;
 	}
 
 	public double getCost(Location oLocationA, Location oLocationB) {

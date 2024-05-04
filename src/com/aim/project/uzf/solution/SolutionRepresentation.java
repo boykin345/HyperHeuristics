@@ -32,7 +32,7 @@ public class SolutionRepresentation implements SolutionRepresentationInterface {
 
     @Override
     public SolutionRepresentationInterface clone() {
-        return new SolutionRepresentation(this.solutionRepresentation.clone(), this.numberOfLocations);
+        return new SolutionRepresentation(this.solutionRepresentation, this.numberOfLocations);
     }
 
 }

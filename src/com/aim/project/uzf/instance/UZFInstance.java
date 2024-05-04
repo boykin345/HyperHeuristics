@@ -3,6 +3,7 @@ package com.aim.project.uzf.instance;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.aim.project.uzf.UZFObjectiveFunction;
 import com.aim.project.uzf.interfaces.ObjectiveFunctionInterface;
 import com.aim.project.uzf.interfaces.SolutionRepresentationInterface;
 import com.aim.project.uzf.interfaces.UZFInstanceInterface;
@@ -29,6 +30,7 @@ public class UZFInstance implements UZFInstanceInterface {
 		this.aoLocations = aoLocations;
 		this.foodPreparationLocation = foodPreparationLocation;
 		this.numberOfLocations = numberOfLocations;
+		this.oObjectiveFunction = new UZFObjectiveFunction(UZFInstance.this);
 	}
 
 	@Override
@@ -46,6 +48,7 @@ public class UZFInstance implements UZFInstanceInterface {
 				solutionRepresentation[j] = temp;
 			}
 			return new UZFSolution(sol, oObjectiveFunction.getObjectiveFunctionValue(sol));
+
 		} else if (mode == InitialisationMode.CONSTRUCTIVE) {
 			int[] solutionRepresentation = new int[numberOfLocations];
 			SolutionRepresentationInterface sol = new SolutionRepresentation(solutionRepresentation, numberOfLocations);
