@@ -37,7 +37,7 @@ public class UZFInstance implements UZFInstanceInterface {
 	public UZFSolution createSolution(InitialisationMode mode) {
 		if (mode == InitialisationMode.RANDOM) {
 			int[] solutionRepresentation = new int[numberOfLocations];
-			SolutionRepresentationInterface sol = new SolutionRepresentation(solutionRepresentation, numberOfLocations);
+			SolutionRepresentationInterface sol = new SolutionRepresentation(solutionRepresentation);
 			for (int i = 0; i < numberOfLocations; i++) {
 				solutionRepresentation[i] = i;
 			}
@@ -51,10 +51,11 @@ public class UZFInstance implements UZFInstanceInterface {
 
 		} else if (mode == InitialisationMode.CONSTRUCTIVE) {
 			int[] solutionRepresentation = new int[numberOfLocations];
-			SolutionRepresentationInterface sol = new SolutionRepresentation(solutionRepresentation, numberOfLocations);
+			SolutionRepresentationInterface sol = new SolutionRepresentation(solutionRepresentation);
 			for (int i = 0; i < numberOfLocations; i++) {
 				solutionRepresentation[i] = i;
 			}
+
 			for (int i = 0; i < numberOfLocations - 1; i++) {
 				int minIndex = i + 1;
 				double minDistance = oObjectiveFunction.getCost(solutionRepresentation[i],

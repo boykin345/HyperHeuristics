@@ -20,14 +20,14 @@ import AbstractClasses.ProblemDomain;
 public class UZFDomain extends ProblemDomain implements Visualisable {
 
 	private int memorySize;
-	private HeuristicOperators[] heuristics;
+	private HeuristicInterface[] heuristics;
 
 	public UZFDomain(long seed) {
 
 		// TODO - set default memory size and create the array of low-level heuristics
 		super(seed);
 		this.memorySize = 12;
-		this.heuristics = new HeuristicOperators[] {
+		this.heuristics = new HeuristicInterface[] {
 				new AdjacentSwap(this.rng),
 				new DavissHillClimbing(this.rng),
 				new NextDescent(this.rng),
