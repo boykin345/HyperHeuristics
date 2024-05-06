@@ -58,7 +58,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 	@Override
 	public double applyHeuristic(int hIndex, int currentIndex, int candidateIndex) {
 		UAVSolutionInterface current = this.memory[currentIndex].clone();
-		this.heuristics[hIndex].apply(current, 0.5, 0.5);
+		this.heuristics[hIndex].apply(current, depthOfSearch, intensityOfMutation);
 		this.memory[candidateIndex] = current;
 		return current.getObjectiveFunctionValue();
 	}
@@ -70,7 +70,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 		UAVSolutionInterface candidate = parent1.clone();
 		if (hIndex == 4) {
 			PMX pmx = (PMX) this.heuristics[4];
-			pmx.apply(parent1, parent2, candidate, 0.5, 0.5);
+			pmx.apply(parent1, parent2, candidate, depthOfSearch, intensityOfMutation);
 		}
 		this.memory[candidateIndex] = candidate;
 		return candidate.getObjectiveFunctionValue();
@@ -193,6 +193,9 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 		String path = "/Users/mkoliakin/Downloads/COMP2001-UZF-TEMPLATE-CODES/instances/uzf/" + filename;
 		Path pathToFile = Paths.get(path);
 		this.instance = reader.readUZFInstance(pathToFile, this.rng);
+		for (HeuristicInterface heuristic : heuristics) {
+			heuristic.setObjectiveFunction(instance.getUZFObjectiveFunction());
+		}
 	}
 
 	@Override

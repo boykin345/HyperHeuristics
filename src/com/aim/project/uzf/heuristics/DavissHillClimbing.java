@@ -1,5 +1,6 @@
 package com.aim.project.uzf.heuristics;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import com.aim.project.uzf.interfaces.HeuristicInterface;
@@ -18,40 +19,75 @@ public class DavissHillClimbing extends HeuristicOperators implements HeuristicI
 
 	@Override
 	public int apply(UAVSolutionInterface solution, double dos, double iom) {
-		int iterations;
-		if (iom >= 0.0 && iom < 0.2) {
-			iterations = 1;
-		} else if (iom >= 0.2 && iom < 0.4) {
-			iterations = 2;
-		} else if (iom >= 0.4 && iom < 0.6) {
-			iterations = 3;
-		} else if (iom >= 0.6 && iom < 0.8) {
-			iterations = 4;
-		} else {
-			iterations = 5;
+		int numberOfIterations = numberIterations(dos);
+		for (int i = 0; i < numberOfIterations; i++) {
+			double bestEval = solution.getObjectiveFunctionValue();
+			int[] bestRepresentation = solution.getSolutionRepresentation().getSolutionRepresentation();
+			int[] tmpRepresentation = solution.getSolutionRepresentation().getSolutionRepresentation();
+			int[] perm = randomPermutation(solution.getNumberOfLocations());
+			for (int j = 0; j < solution.getNumberOfLocations(); j++) {
+				int index1 = perm[j];
+				int index2 = (index1 + 1) % solution.getNumberOfLocations();
+				int temp = tmpRepresentation[index1];
+				tmpRepresentation[index1] = tmpRepresentation[index2];
+				tmpRepresentation[index2] = temp;
+				solution.getSolutionRepresentation().setSolutionRepresentation(tmpRepresentation);
+				double tmpEval = solution.getObjectiveFunctionValue();
+				if (tmpEval > bestEval) {
+					solution.getSolutionRepresentation().setSolutionRepresentation(bestRepresentation);
+				} else {
+					bestEval = tmpEval;
+					bestRepresentation = tmpRepresentation;
+				}
+			}
 		}
-
-		for (int i = 0; i < iterations; i++) {
-			int index = random.nextInt(solution.getNumberOfLocations());
-			int adjacentIndex = (index + 1) % solution.getNumberOfLocations();
-			swapLocations(solution.getSolutionRepresentation().getSolutionRepresentation(), index, adjacentIndex);
-		}
-
 		return solution.getObjectiveFunctionValue();
 	}
 
-	@Override
+	public int[] randomPermutation(int length) {
+		int[] permutation = new int[length];
+		for (int i = 0; i < length; i++) {
+			permutation[i] = i;
+		}
+		java.util.Collections.shuffle(Arrays.asList(permutation));
+		return permutation;
+	}
+
+	public int numberIterations(double searchDepth) {
+		if (searchDepth < 0.2) {
+			return 1;
+		} else if (searchDepth < 0.4) {
+			return 2;
+		} else if (searchDepth < 0.6) {
+			return 3;
+		} else if (searchDepth < 0.8) {
+			return 4;
+		} else if (searchDepth < 1) {
+			return 5;
+		}
+		return 0; // depth of search always between 0 and 1.
+	}
+
 	public boolean isCrossover() {
+
+		// TODO
+		// return random.nextBoolean();
 		return false;
 	}
 
 	@Override
 	public boolean usesIntensityOfMutation() {
+
+		// TODO
+		// return random.nextBoolean();
 		return false;
 	}
 
 	@Override
 	public boolean usesDepthOfSearch() {
+
+		// TODO
+		// return random.nextBoolean();
 		return true;
 	}
 }
