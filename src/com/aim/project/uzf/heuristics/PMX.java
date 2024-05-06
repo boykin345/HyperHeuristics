@@ -24,7 +24,7 @@ public class PMX implements XOHeuristicInterface {
 	public int apply(UAVSolutionInterface solution, double depthOfSearch, double intensityOfMutation) {
 
 		// TODO
-		return -1;
+		return 0;
 	}
 
 	@Override

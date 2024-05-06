@@ -38,20 +38,17 @@ public class SteepestDecent extends HeuristicOperators implements HeuristicInter
 
     @Override
     public boolean isCrossover() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isCrossover'");
+        return false;
     }
 
     @Override
     public boolean usesIntensityOfMutation() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'usesIntensityOfMutation'");
+        return false;
     }
 
     @Override
     public boolean usesDepthOfSearch() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'usesDepthOfSearch'");
+        return true;
     }
 
 }

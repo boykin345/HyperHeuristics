@@ -1,6 +1,5 @@
 package com.aim.project.uzf.hyperheuristics;
 
-
 import com.aim.project.uzf.UZFDomain;
 import com.aim.project.uzf.SolutionPrinter;
 import com.aim.project.uzf.interfaces.UAVSolutionInterface;
@@ -17,7 +16,7 @@ public class SR_IE_HH extends HyperHeuristic {
 	private static final int BEST_ACCEPTED_INDEX = 3;
 
 	public SR_IE_HH(long lSeed) {
-		
+
 		super(lSeed);
 	}
 
@@ -38,19 +37,19 @@ public class SR_IE_HH extends HyperHeuristic {
 		boolean[] isCrossover = new boolean[numberOfHeuristics];
 		Arrays.fill(isCrossover, false);
 
-		for(int i : oProblem.getHeuristicsOfType(ProblemDomain.HeuristicType.CROSSOVER)) {
+		for (int i : oProblem.getHeuristicsOfType(ProblemDomain.HeuristicType.CROSSOVER)) {
 
 			isCrossover[i] = true;
 		}
 
 		// main search loop
 		double candidateCost;
-		while(!hasTimeExpired()) {
+		while (!hasTimeExpired()) {
 
 			int h = rng.nextInt(numberOfHeuristics);
-			if(isCrossover[h]) {
+			if (isCrossover[h]) {
 
-				if(rng.nextBoolean()) {
+				if (rng.nextBoolean()) {
 					// randomly choose between crossover with newly initialised solution
 					oProblem.initialiseSolution(SECOND_PARENT_INDEX);
 					candidateCost = oProblem.applyHeuristic(h, currentIndex, SECOND_PARENT_INDEX, candidateIndex);
@@ -63,13 +62,13 @@ public class SR_IE_HH extends HyperHeuristic {
 			}
 
 			// update best
-			if(candidateCost < currentCost) {
+			if (candidateCost < currentCost) {
 
 				oProblem.copySolution(candidateIndex, BEST_ACCEPTED_INDEX);
 			}
 
 			// accept improving or equal moves
-			if(candidateCost <= currentCost) {
+			if (candidateCost <= currentCost) {
 
 				currentCost = candidateCost;
 				currentIndex = 1 - currentIndex;
@@ -77,10 +76,10 @@ public class SR_IE_HH extends HyperHeuristic {
 			}
 		}
 
-		
 		UAVSolutionInterface oSolution = ((UZFDomain) oProblem).getBestSolution();
 		SolutionPrinter oSolutionPrinter = new SolutionPrinter("out.csv");
-		oSolutionPrinter.printSolution( ((UZFDomain) oProblem).getLoadedInstance().getSolutionAsListOfLocations(oSolution));
+		oSolutionPrinter
+				.printSolution(((UZFDomain) oProblem).getLoadedInstance().getSolutionAsListOfLocations(oSolution));
 	}
 
 	@Override
