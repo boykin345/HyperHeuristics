@@ -39,7 +39,6 @@ public class ExchangeSwap extends HeuristicOperators implements HeuristicInterfa
             int index1 = random.nextInt(solution.getSolutionRepresentation().getNumberOfLocations());
             int index2 = random.nextInt(solution.getSolutionRepresentation().getNumberOfLocations());
 
-            // Ensure we have two distinct indices
             while (index1 == index2) {
                 index2 = random.nextInt(solution.getSolutionRepresentation().getNumberOfLocations());
             }
