@@ -1,6 +1,5 @@
 package com.aim.project.uzf.heuristics;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import com.aim.project.uzf.interfaces.HeuristicInterface;
@@ -24,7 +23,7 @@ public class DavissHillClimbing extends HeuristicOperators implements HeuristicI
 			double bestEval = solution.getObjectiveFunctionValue();
 			int[] bestRepresentation = solution.getSolutionRepresentation().getSolutionRepresentation();
 			int[] tmpRepresentation = solution.getSolutionRepresentation().getSolutionRepresentation();
-			int[] perm = randomPermutation(solution.getNumberOfLocations());
+			int[] perm = createRandomPermutation(solution.getNumberOfLocations());
 			for (int j = 0; j < solution.getNumberOfLocations(); j++) {
 				int index1 = perm[j];
 				int index2 = (index1 + 1) % solution.getNumberOfLocations();
@@ -42,15 +41,6 @@ public class DavissHillClimbing extends HeuristicOperators implements HeuristicI
 			}
 		}
 		return solution.getObjectiveFunctionValue();
-	}
-
-	public int[] randomPermutation(int length) {
-		int[] permutation = new int[length];
-		for (int i = 0; i < length; i++) {
-			permutation[i] = i;
-		}
-		java.util.Collections.shuffle(Arrays.asList(permutation));
-		return permutation;
 	}
 
 	public int numberIterations(double searchDepth) {

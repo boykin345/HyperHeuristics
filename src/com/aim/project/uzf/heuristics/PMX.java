@@ -23,7 +23,7 @@ public class PMX implements XOHeuristicInterface {
 	@Override
 	public int apply(UAVSolutionInterface solution, double depthOfSearch, double intensityOfMutation) {
 
-		// TODO
+		//
 		return 0;
 	}
 
@@ -70,7 +70,7 @@ public class PMX implements XOHeuristicInterface {
 	@Override
 	public void setObjectiveFunction(ObjectiveFunctionInterface f) {
 
-		// TODO
+		//
 	}
 
 	@Override

@@ -2,13 +2,10 @@ package com.aim.project.uzf.runners;
 
 import com.aim.project.uzf.UZFDomain;
 import com.aim.project.uzf.hyperheuristics.SR_IE_HH;
-import com.aim.project.uzf.instance.reader.UAVInstanceReader;
 import AbstractClasses.HyperHeuristic;
 
 class MainTest {
         public static void main(String[] args) {
-                UAVInstanceReader reader = new UAVInstanceReader();
-
                 UZFDomain domain = new UZFDomain(1234);
                 domain.loadInstance(0);
                 System.out.println("Loaded instance: " + domain.getLoadedInstance()); // Add debugging output here
