@@ -25,9 +25,15 @@ public class SR_IE_VisualRunner extends HH_Runner_Visual {
 	}
 
 	public static void main(String[] args) {
-
-		HH_Runner_Visual runner = new SR_IE_VisualRunner(0);
-		runner.run();
+		int instanceId = 4;
+		// HH_Runner_Visual runner = new SR_IE_VisualRunner(instanceId);
+		// System.out.println("Number of instance - " + instanceId);
+		// runner.run();
+		// for (int i = 0; i < 7; i++) {
+		System.out.println("Number of instance - " + instanceId);
+		HH_Runner_Visual runner1 = new SR_IE_VisualRunner(instanceId);
+		runner1.run();
+		// }
 	}
 
 }

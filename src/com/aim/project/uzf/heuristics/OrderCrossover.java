@@ -36,37 +36,29 @@ public class OrderCrossover implements XOHeuristicInterface {
 
         int size = p1.length;
 
-        // Step 1: Select a random subset of the first parent
         int start = random.nextInt(size);
         int end = random.nextInt(size - start) + start;
         for (int i = start; i < end; i++) {
             child[i] = p1[i];
         }
 
-        // Step 2: Fill the remaining positions with the genes from the second parent in
-        // the order they appear, without duplicating any genes in the selected subset
-        // from step 1
         int current = end;
         for (int i = end; i < end + size; i++) {
             int gene = p2[i % size];
-            if (!containsGene(child, start, end, gene)) {
+            if (!containsGen(child, start, end, gene)) {
                 child[current % size] = gene;
                 current++;
             }
         }
-
-        // Update the solution representation of the offspring
         offspring.getSolutionRepresentation().setSolutionRepresentation(child);
-
-        // Evaluate the new solution
         double objectiveValue = offspring.getObjectiveFunctionValue();
 
         return objectiveValue;
     }
 
-    private boolean containsGene(int[] array, int start, int end, int gene) {
+    private boolean containsGen(int[] array, int start, int end, int gen) {
         for (int i = start; i < end; i++) {
-            if (array[i] == gene) {
+            if (array[i] == gen) {
                 return true;
             }
         }

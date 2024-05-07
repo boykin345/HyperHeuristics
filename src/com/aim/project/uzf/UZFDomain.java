@@ -8,7 +8,9 @@ import java.util.Random;
 
 import com.aim.project.uzf.heuristics.AdjacentSwap;
 import com.aim.project.uzf.heuristics.DavissHillClimbing;
+import com.aim.project.uzf.heuristics.ExchangeSwap;
 import com.aim.project.uzf.heuristics.NextDescent;
+import com.aim.project.uzf.heuristics.OrderCrossover;
 import com.aim.project.uzf.heuristics.PMX;
 import com.aim.project.uzf.heuristics.Reinsertion;
 import com.aim.project.uzf.heuristics.SteepestDescent;
@@ -43,13 +45,15 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 		this.memorySize = 6;
 		this.memory = new UAVSolutionInterface[this.memorySize];
 
-		this.heuristics = new HeuristicInterface[6];
+		this.heuristics = new HeuristicInterface[8];
 		this.heuristics[0] = new AdjacentSwap(this.rng);
 		this.heuristics[1] = new DavissHillClimbing(this.rng);
 		this.heuristics[2] = new NextDescent(this.rng);
 		this.heuristics[3] = new SteepestDescent(this.rng);
 		this.heuristics[4] = new PMX(this.rng);
 		this.heuristics[5] = new Reinsertion(this.rng);
+		this.heuristics[6] = new ExchangeSwap(this.rng);
+		this.heuristics[7] = new OrderCrossover(this.rng);
 	}
 
 	@Override

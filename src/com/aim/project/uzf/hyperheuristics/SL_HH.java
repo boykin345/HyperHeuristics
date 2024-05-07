@@ -13,24 +13,23 @@ public class SL_HH extends HyperHeuristic {
 
     @Override
     protected void solve(ProblemDomain problem) {
-        problem.setMemorySize(4);
+        int currentIndex = 0;
+        int candidateIndex = 1;
+        problem.setMemorySize(10);
+        problem.initialiseSolution(currentIndex);
+        problem.copySolution(currentIndex, 1);
 
+        double currentCost = problem.getFunctionValue(currentIndex);
         int numberOfHeuristics = problem.getNumberOfHeuristics();
 
-        int currentIndex = 0;
-        problem.initialiseSolution(currentIndex);
-
         while (!hasTimeExpired()) {
+            int h = rng.nextInt(numberOfHeuristics);
 
-            int heuristicToApply = rng.nextInt(numberOfHeuristics);
+            double candidateCost = problem.applyHeuristic(h, currentIndex, candidateIndex);
 
-            // Apply the selected heuristic to the current solution
-            double currentFitness = problem.getFunctionValue(currentIndex);
-            double newFitness = problem.applyHeuristic(heuristicToApply, currentIndex, currentIndex);
-
-            // If the new solution is better, accept it
-            if (newFitness < currentFitness) {
-                problem.copySolution(currentIndex, currentIndex);
+            if (candidateCost < currentCost) {
+                problem.copySolution(candidateIndex, currentIndex);
+                currentCost = candidateCost;
             }
         }
     }
