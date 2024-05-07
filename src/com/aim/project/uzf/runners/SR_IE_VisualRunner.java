@@ -21,12 +21,12 @@ public class SR_IE_VisualRunner extends HH_Runner_Visual {
 	@Override
 	protected HyperHeuristic getHyperHeuristic(long seed) {
 
-		return new SL_HH(seed);
+		return new SR_IE_HH(seed);
 	}
 
 	public static void main(String[] args) {
 
-		HH_Runner_Visual runner = new SR_IE_VisualRunner(4);
+		HH_Runner_Visual runner = new SR_IE_VisualRunner(0);
 		runner.run();
 	}
 

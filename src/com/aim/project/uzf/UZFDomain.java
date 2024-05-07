@@ -3,7 +3,6 @@ package com.aim.project.uzf;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -12,7 +11,7 @@ import com.aim.project.uzf.heuristics.DavissHillClimbing;
 import com.aim.project.uzf.heuristics.NextDescent;
 import com.aim.project.uzf.heuristics.PMX;
 import com.aim.project.uzf.heuristics.Reinsertion;
-import com.aim.project.uzf.heuristics.SteepestDecent;
+import com.aim.project.uzf.heuristics.SteepestDescent;
 import com.aim.project.uzf.instance.InitialisationMode;
 import com.aim.project.uzf.instance.Location;
 import com.aim.project.uzf.instance.reader.UAVInstanceReader;
@@ -20,8 +19,6 @@ import com.aim.project.uzf.interfaces.HeuristicInterface;
 import com.aim.project.uzf.interfaces.UAVSolutionInterface;
 import com.aim.project.uzf.interfaces.UZFInstanceInterface;
 import com.aim.project.uzf.interfaces.Visualisable;
-import com.aim.project.uzf.solution.UZFSolution;
-
 import AbstractClasses.ProblemDomain;
 
 /**
@@ -38,7 +35,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 
 	public UZFDomain(long seed) {
 
-		// TODO - set default memory size and create the array of low-level heuristics
+		// set default memory size and create the array of low-level heuristics
 		super(seed);
 
 		this.rng = new Random();
@@ -50,7 +47,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 		this.heuristics[0] = new AdjacentSwap(this.rng);
 		this.heuristics[1] = new DavissHillClimbing(this.rng);
 		this.heuristics[2] = new NextDescent(this.rng);
-		this.heuristics[3] = new SteepestDecent(this.rng);
+		this.heuristics[3] = new SteepestDescent(this.rng);
 		this.heuristics[4] = new PMX(this.rng);
 		this.heuristics[5] = new Reinsertion(this.rng);
 	}
@@ -91,7 +88,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 	@Override
 	public void copySolution(int a, int b) {
 
-		// TODO - BEWARE this should copy the solution, not the reference to it!
+		// BEWARE this should copy the solution, not the reference to it!
 		// That is, that if we apply a heuristic to the solution in index 'b',
 		// then it does not modify the solution in index 'a' or vice-versa.
 		this.memory[b] = this.memory[a].clone();
@@ -108,7 +105,6 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 		return this.memory[index].getObjectiveFunctionValue();
 	}
 
-	// TODO
 	@Override
 	public int[] getHeuristicsOfType(HeuristicType type) {
 		if (type == HeuristicType.LOCAL_SEARCH) {
@@ -143,22 +139,17 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 		return dir.list((dir1, name) -> name.endsWith(".uzf")).length;
 	}
 
-	@Override
 	public void initialiseSolution(int index) {
-
-		// TODO - make sure that you also update the best solution!
-		if (index < 0 || index >= this.memorySize) {
-			throw new IllegalArgumentException("Invalid index");
+		// make sure that you also update the best solution!
+		UZFInstanceInterface instance = getLoadedInstance();
+		UAVSolutionInterface constructiveSolution = instance.createSolution(InitialisationMode.CONSTRUCTIVE);
+		UAVSolutionInterface randomSolution = instance.createSolution(InitialisationMode.RANDOM);
+		if (constructiveSolution.getObjectiveFunctionValue() < randomSolution.getObjectiveFunctionValue()) {
+			memory[index] = constructiveSolution;
+		} else {
+			memory[index] = randomSolution;
 		}
-
-		UZFInstanceInterface instance = this.getLoadedInstance();
-		if (instance == null) {
-			throw new IllegalStateException("Instance not loaded");
-		}
-		bestSolution = this.instance.createSolution(InitialisationMode.CONSTRUCTIVE);
-		UAVSolutionInterface solution = instance.createSolution(InitialisationMode.RANDOM);
-		this.memory[index] = solution;
-		this.updateBestSolution(index);
+		updateBestSolution(index);
 	}
 
 	@Override
@@ -218,7 +209,8 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 	}
 
 	private void updateBestSolution(int index) {
-		if (this.memory[index].getObjectiveFunctionValue() < this.getBestSolution().getObjectiveFunctionValue()) {
+		if (bestSolution == null || this.memory[index].getObjectiveFunctionValue() < this.getBestSolution()
+				.getObjectiveFunctionValue()) {
 			this.bestSolution = this.memory[index].clone();
 		}
 	}

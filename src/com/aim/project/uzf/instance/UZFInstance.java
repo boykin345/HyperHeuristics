@@ -35,47 +35,39 @@ public class UZFInstance implements UZFInstanceInterface {
 
 	@Override
 	public UZFSolution createSolution(InitialisationMode mode) {
+		int[] solutionArray = new int[numberOfLocations];
+		for (int i = 0; i < numberOfLocations; i++) {
+			solutionArray[i] = i;
+		}
 		if (mode == InitialisationMode.RANDOM) {
-			int[] solutionRepresentation = new int[numberOfLocations];
-			SolutionRepresentationInterface sol = new SolutionRepresentation(solutionRepresentation);
 			for (int i = 0; i < numberOfLocations; i++) {
-				solutionRepresentation[i] = i;
+				int swapIndex = random.nextInt(solutionArray.length);
+				int temp = solutionArray[i];
+				solutionArray[i] = solutionArray[swapIndex];
+				solutionArray[swapIndex] = temp;
 			}
-			for (int i = 0; i < numberOfLocations; i++) {
-				int j = random.nextInt(numberOfLocations);
-				int temp = solutionRepresentation[i];
-				solutionRepresentation[i] = solutionRepresentation[j];
-				solutionRepresentation[j] = temp;
-			}
-			return new UZFSolution(sol, oObjectiveFunction.getObjectiveFunctionValue(sol));
-
 		} else if (mode == InitialisationMode.CONSTRUCTIVE) {
-			int[] solutionRepresentation = new int[numberOfLocations];
-			SolutionRepresentationInterface sol = new SolutionRepresentation(solutionRepresentation);
-			for (int i = 0; i < numberOfLocations; i++) {
-				solutionRepresentation[i] = i;
-			}
-
-			for (int i = 0; i < numberOfLocations - 1; i++) {
-				int minIndex = i + 1;
-				double minDistance = oObjectiveFunction.getCost(solutionRepresentation[i],
-						solutionRepresentation[minIndex]);
-				for (int j = i + 2; j < numberOfLocations; j++) {
-					double distance = oObjectiveFunction.getCost(solutionRepresentation[i], solutionRepresentation[j]);
+			int firstIndex = random.nextInt(numberOfLocations - 1);
+			solutionArray[0] = firstIndex;
+			solutionArray[firstIndex] = 0;
+			for (int i = 1; i < numberOfLocations; i++) {
+				double minDistance = oObjectiveFunction.getCost(solutionArray[i - 1], solutionArray[i]);
+				int minIndex = i;
+				for (int j = i + 1; j < numberOfLocations; j++) {
+					double distance = oObjectiveFunction.getCost(solutionArray[i - 1], solutionArray[j]);
 					if (distance < minDistance) {
 						minDistance = distance;
 						minIndex = j;
 					}
 				}
-
-				int temp = solutionRepresentation[i + 1];
-				solutionRepresentation[i + 1] = solutionRepresentation[minIndex];
-				solutionRepresentation[minIndex] = temp;
+				int temp = solutionArray[i];
+				solutionArray[i] = solutionArray[minIndex];
+				solutionArray[minIndex] = temp;
 			}
-			return new UZFSolution(sol, oObjectiveFunction.getObjectiveFunctionValue(sol));
-		} else {
-			throw new IllegalArgumentException("Invalid initialisation mode: " + mode);
 		}
+		SolutionRepresentationInterface solutionRepresentation = new SolutionRepresentation(solutionArray);
+		return new UZFSolution(solutionRepresentation,
+				oObjectiveFunction.getObjectiveFunctionValue(solutionRepresentation));
 	}
 
 	@Override

@@ -70,7 +70,6 @@ public class DavissHillClimbing extends HeuristicOperators implements HeuristicI
 
 	public boolean isCrossover() {
 
-		// TODO
 		// return random.nextBoolean();
 		return false;
 	}
@@ -78,7 +77,6 @@ public class DavissHillClimbing extends HeuristicOperators implements HeuristicI
 	@Override
 	public boolean usesIntensityOfMutation() {
 
-		// TODO
 		// return random.nextBoolean();
 		return false;
 	}
@@ -86,7 +84,6 @@ public class DavissHillClimbing extends HeuristicOperators implements HeuristicI
 	@Override
 	public boolean usesDepthOfSearch() {
 
-		// TODO
 		// return random.nextBoolean();
 		return true;
 	}

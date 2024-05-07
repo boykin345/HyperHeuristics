@@ -1,24 +1,9 @@
 package com.aim.project.uzf.runners;
 
 import com.aim.project.uzf.UZFDomain;
-import com.aim.project.uzf.UZFObjectiveFunction;
-import com.aim.project.uzf.heuristics.AdjacentSwap;
-import com.aim.project.uzf.heuristics.DavissHillClimbing;
-import com.aim.project.uzf.heuristics.NextDescent;
-import com.aim.project.uzf.heuristics.PMX;
-import com.aim.project.uzf.heuristics.Reinsertion;
-import com.aim.project.uzf.heuristics.SteepestDecent;
 import com.aim.project.uzf.hyperheuristics.SR_IE_HH;
-import com.aim.project.uzf.instance.InitialisationMode;
-import com.aim.project.uzf.instance.UZFInstance;
 import com.aim.project.uzf.instance.reader.UAVInstanceReader;
-import com.aim.project.uzf.interfaces.UZFInstanceInterface;
-import com.aim.project.uzf.solution.UZFSolution;
-
 import AbstractClasses.HyperHeuristic;
-
-import java.nio.file.Paths;
-import java.util.Random;
 
 class MainTest {
         public static void main(String[] args) {
