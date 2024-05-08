@@ -15,11 +15,11 @@ public class Reinsertion extends HeuristicOperators implements HeuristicInterfac
 	@Override
 	public int apply(UAVSolutionInterface solution, double searchDepth, double intensityOfMutation) {
 
-		// int reinsertions = 0;
+		// solutions_array is the array of locations in the solution
 		int[] solutions_array = solution.getSolutionRepresentation().getSolutionRepresentation();
 
 		int numOfMaxReinsertions = numberIterations(intensityOfMutation);
-
+		// loop through the number of reinsertions
 		for (int x = 0; x < numOfMaxReinsertions; x++) {
 			int removeIndex = random.nextInt(solutions_array.length);
 			int removedElement = solutions_array[removeIndex];
@@ -36,7 +36,6 @@ public class Reinsertion extends HeuristicOperators implements HeuristicInterfac
 				solutions_array[j] = solutions_array[j - 1];
 			}
 			solutions_array[insertIndex] = removedElement; // Reinsert the removed element
-			// reinsertions++;
 		}
 
 		// Update the solution representation with the modified array

@@ -15,7 +15,6 @@ public class ExchangeSwap extends HeuristicOperators implements HeuristicInterfa
     @Override
     public int apply(UAVSolutionInterface solution, double depthOfSearch, double intensityOfMutation) {
         int numberOfSwaps;
-
         if (intensityOfMutation >= 0.0 && intensityOfMutation < 0.2) {
             numberOfSwaps = 1;
         } else if (intensityOfMutation >= 0.2 && intensityOfMutation < 0.4) {
@@ -31,6 +30,7 @@ public class ExchangeSwap extends HeuristicOperators implements HeuristicInterfa
         } else {
             throw new IllegalArgumentException("Intensity of mutation must be between 0.0 and 1.0");
         }
+        // randomly swap locations in two different locations
         for (int i = 0; i < numberOfSwaps; i++) {
             int index1 = random.nextInt(solution.getSolutionRepresentation().getNumberOfLocations());
             int index2 = random.nextInt(solution.getSolutionRepresentation().getNumberOfLocations());

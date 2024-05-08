@@ -54,6 +54,8 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 
 	@Override
 	public double applyHeuristic(int hIndex, int currentIndex, int candidateIndex) {
+		// apply the heuristic and return the objective function value of the current
+		// solution
 		UAVSolutionInterface current = this.memory[currentIndex].clone();
 		this.heuristics[hIndex].apply(current, depthOfSearch, intensityOfMutation);
 		this.memory[candidateIndex] = current;
@@ -62,6 +64,8 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 
 	@Override
 	public double applyHeuristic(int hIndex, int parent1Index, int parent2Index, int candidateIndex) {
+		// apply the crossover heuristic and return the objective function value of the
+		// candidate solution
 		UAVSolutionInterface parent1 = memory[parent1Index];
 		UAVSolutionInterface parent2 = memory[parent2Index];
 		UAVSolutionInterface candidate = parent1.clone();
@@ -80,6 +84,8 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 
 	@Override
 	public boolean compareSolutions(int a, int b) {
+		// return true if the solution in index 'a' is having a lower value than the
+		// solution in index
 		int aFunctionValue = this.memory[a].getObjectiveFunctionValue();
 		int bFunctionValue = this.memory[b].getObjectiveFunctionValue();
 		return aFunctionValue < bFunctionValue;
@@ -107,6 +113,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 
 	@Override
 	public int[] getHeuristicsOfType(HeuristicType type) {
+		// return the indices of the heuristics that belong to the given type
 		if (type == HeuristicType.LOCAL_SEARCH) {
 			return new int[] { 0, 1, 2, 3 };
 		} else if (type == HeuristicType.CROSSOVER) {
@@ -135,12 +142,14 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 
 	@Override
 	public int getNumberOfInstances() {
+		// get the number of instances from the directory
 		File dir = new File("/Users/mkoliakin/Downloads/COMP2001-UZF-TEMPLATE-CODES/instances/uzf");
 		return dir.list((dir1, name) -> name.endsWith(".uzf")).length;
 	}
 
 	public void initialiseSolution(int index) {
 		// make sure that you also update the best solution!
+		// initialise the solution at the given index
 		UZFInstanceInterface instance = getLoadedInstance();
 		UAVSolutionInterface constructiveSolution = instance.createSolution(InitialisationMode.CONSTRUCTIVE);
 		UAVSolutionInterface randomSolution = instance.createSolution(InitialisationMode.RANDOM);
@@ -154,6 +163,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 
 	@Override
 	public void loadInstance(int instanceId) {
+		// load the instance from the file
 		String filename;
 		switch (instanceId) {
 			case 0:
@@ -209,6 +219,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 	}
 
 	private void updateBestSolution(int index) {
+		// update the best solution if the solution at the given index is better
 		if (bestSolution == null || this.memory[index].getObjectiveFunctionValue() < this.getBestSolution()
 				.getObjectiveFunctionValue()) {
 			this.bestSolution = this.memory[index].clone();
@@ -231,6 +242,7 @@ public class UZFDomain extends ProblemDomain implements Visualisable {
 
 	@Override
 	public Location[] getRouteOrderedByLocations() {
+		// return the best solution as an array of locations
 		if (this.bestSolution == null) {
 			return null;
 		}

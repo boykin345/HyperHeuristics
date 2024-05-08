@@ -18,6 +18,7 @@ public class UAVInstanceReader implements UAVInstanceReaderInterface {
 
 	@Override
 	public UZFInstanceInterface readUZFInstance(Path path, Random random) {
+		// read the locations and food preparation location from the file
 		List<Location> locations = new ArrayList<>();
 		Location foodPreparationLocation = null;
 		try (Scanner scanner = new Scanner(path)) {
@@ -40,6 +41,7 @@ public class UAVInstanceReader implements UAVInstanceReaderInterface {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		// return the instance
 		return new UZFInstance(locations.size(), locations.toArray(new Location[0]), foodPreparationLocation,
 				random);
 	}

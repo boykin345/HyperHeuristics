@@ -14,6 +14,8 @@ public class NextDescent extends HeuristicOperators implements HeuristicInterfac
 
 	@Override
 	public int apply(UAVSolutionInterface solution, double dos, double iom) {
+
+		// iterations is used to determine the number of swaps
 		int iterations = 0;
 		if (dos >= 0.0 && dos < 0.2) {
 			iterations = 1;
@@ -26,7 +28,7 @@ public class NextDescent extends HeuristicOperators implements HeuristicInterfac
 		} else if (dos >= 0.8 && dos <= 1.0) {
 			iterations = 5;
 		}
-
+		// swap locations
 		for (int i = 0; i < iterations; i++) {
 			int start = random.nextInt(solution.getNumberOfLocations());
 			for (int j = 0; j < solution.getNumberOfLocations(); j++) {

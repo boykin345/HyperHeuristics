@@ -20,7 +20,7 @@ public class UZFInstance implements UZFInstanceInterface {
 	private ObjectiveFunctionInterface oObjectiveFunction;
 
 	public UZFInstance(int numberOfLocations, Location[] aoLocations, Location foodPreparationLocation, Random random) {
-
+		// constructor for the UZFInstance class
 		this.random = random;
 		this.aoLocations = aoLocations;
 		this.foodPreparationLocation = foodPreparationLocation;
@@ -34,6 +34,7 @@ public class UZFInstance implements UZFInstanceInterface {
 		for (int i = 0; i < numberOfLocations; i++) {
 			solutionArray[i] = i;
 		}
+		// randomly shuffle the locations
 		if (mode == InitialisationMode.RANDOM) {
 			for (int i = 0; i < numberOfLocations; i++) {
 				int swapIndex = random.nextInt(solutionArray.length);
@@ -41,6 +42,7 @@ public class UZFInstance implements UZFInstanceInterface {
 				solutionArray[i] = solutionArray[swapIndex];
 				solutionArray[swapIndex] = temp;
 			}
+			// construct the solution using the constructive heuristic
 		} else if (mode == InitialisationMode.CONSTRUCTIVE) {
 			int firstIndex = random.nextInt(numberOfLocations - 1);
 			solutionArray[0] = firstIndex;
@@ -60,6 +62,7 @@ public class UZFInstance implements UZFInstanceInterface {
 				solutionArray[minIndex] = temp;
 			}
 		}
+		// create the solution representation
 		SolutionRepresentationInterface solutionRepresentation = new SolutionRepresentation(solutionArray);
 		return new UZFSolution(solutionRepresentation,
 				oObjectiveFunction.getObjectiveFunctionValue(solutionRepresentation));
@@ -77,6 +80,7 @@ public class UZFInstance implements UZFInstanceInterface {
 
 	@Override
 	public Location getLocationForEnclosure(int iEnclosureId) {
+		// return the location of the enclosure
 		if (iEnclosureId >= 0 && iEnclosureId < aoLocations.length) {
 			return aoLocations[iEnclosureId];
 		} else {
@@ -91,6 +95,7 @@ public class UZFInstance implements UZFInstanceInterface {
 
 	@Override
 	public ArrayList<Location> getSolutionAsListOfLocations(UAVSolutionInterface oSolution) {
+		// return the solution as a list of locations
 		int[] solutionRepresentation = oSolution.getSolutionRepresentation().getSolutionRepresentation();
 		ArrayList<Location> locations = new ArrayList<>(solutionRepresentation.length);
 		for (int i = 0; i < solutionRepresentation.length; i++) {
