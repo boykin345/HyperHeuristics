@@ -6,10 +6,6 @@ import com.aim.project.uzf.interfaces.ObjectiveFunctionInterface;
 import com.aim.project.uzf.interfaces.UAVSolutionInterface;
 import com.aim.project.uzf.interfaces.XOHeuristicInterface;
 
-/**
- * @author Warren G Jackson
- * @since 1.0.0 (22/03/2024)
- */
 public class OrderCrossover implements XOHeuristicInterface {
 
     private final Random random;

@@ -5,10 +5,6 @@ import java.util.Random;
 import com.aim.project.uzf.interfaces.HeuristicInterface;
 import com.aim.project.uzf.interfaces.UAVSolutionInterface;
 
-/**
- * @author Warren G Jackson
- * @since 1.0.0 (22/03/2024)
- */
 public class ExchangeSwap extends HeuristicOperators implements HeuristicInterface {
 
     public ExchangeSwap(Random random) {

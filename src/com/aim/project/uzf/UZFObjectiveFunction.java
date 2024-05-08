@@ -5,10 +5,6 @@ import com.aim.project.uzf.interfaces.ObjectiveFunctionInterface;
 import com.aim.project.uzf.interfaces.UZFInstanceInterface;
 import com.aim.project.uzf.interfaces.SolutionRepresentationInterface;
 
-/**
- * @author Warren G Jackson
- * @since 1.0.0 (22/03/2024)
- */
 public class UZFObjectiveFunction implements ObjectiveFunctionInterface {
 	private final UZFInstanceInterface oInstance;
 

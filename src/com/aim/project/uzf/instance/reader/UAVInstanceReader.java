@@ -12,10 +12,6 @@ import com.aim.project.uzf.instance.Location;
 import com.aim.project.uzf.instance.UZFInstance;
 import com.aim.project.uzf.interfaces.UAVInstanceReaderInterface;
 
-/**
- * @author Warren G Jackson
- * @since 1.0.0 (22/03/2024)
- */
 public class UAVInstanceReader implements UAVInstanceReaderInterface {
 
 	Random random;

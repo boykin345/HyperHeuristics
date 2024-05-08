@@ -11,11 +11,6 @@ import com.aim.project.uzf.interfaces.UAVSolutionInterface;
 import com.aim.project.uzf.solution.SolutionRepresentation;
 import com.aim.project.uzf.solution.UZFSolution;
 
-/**
- * @author Warren G Jackson
- * @since 1.0.0 (22/03/2024)
- */
-
 public class UZFInstance implements UZFInstanceInterface {
 
 	private final Random random;

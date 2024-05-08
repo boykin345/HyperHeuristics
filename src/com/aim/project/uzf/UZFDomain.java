@@ -23,10 +23,6 @@ import com.aim.project.uzf.interfaces.UZFInstanceInterface;
 import com.aim.project.uzf.interfaces.Visualisable;
 import AbstractClasses.ProblemDomain;
 
-/**
- * @author Warren G Jackson
- * @since 1.0.0 (22/03/2024)
- */
 public class UZFDomain extends ProblemDomain implements Visualisable {
 
 	private int memorySize;

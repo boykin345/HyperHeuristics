@@ -1,92 +1,98 @@
 package com.aim.project.uzf.hyperheuristics;
 
-import java.util.Arrays;
-import java.util.Random;
-
+import AbstractClasses.HyperHeuristic;
+import AbstractClasses.ProblemDomain;
 import com.aim.project.uzf.SolutionPrinter;
 import com.aim.project.uzf.UZFDomain;
 import com.aim.project.uzf.interfaces.UAVSolutionInterface;
-import AbstractClasses.HyperHeuristic;
-import AbstractClasses.ProblemDomain;
+
+import java.util.Arrays;
 
 public class SL_HH extends HyperHeuristic {
+    private static final int SECOND_PARENT_INDEX = 2;
 
     private static final int BEST_ACCEPTED_INDEX = 3;
 
-    public SL_HH(long seed) {
-        super(seed);
-    }
+    public SL_HH(long lSeed) {
 
-    private double coolingRate = 0.95;
-    double currentTemperature;
-
-    private void advanceTemperature() {
-        currentTemperature *= coolingRate;
+        super(lSeed);
     }
 
     @Override
     protected void solve(ProblemDomain oProblem) {
 
         oProblem.setMemorySize(4);
-        int currentIndex = 0;
-        int candidateIndex = 1;
-
-        oProblem.initialiseSolution(currentIndex);
-
-        double currentCost = oProblem.getFunctionValue(currentIndex);
-        oProblem.copySolution(currentIndex, BEST_ACCEPTED_INDEX);
-        currentTemperature = currentCost;
 
         int numberOfHeuristics = oProblem.getNumberOfHeuristics();
+        int[] heuristicScores = new int[numberOfHeuristics];
+        Arrays.fill(heuristicScores, 1);
+
+        int currentIndex = 0;
+        int candidateIndex = 1;
+        oProblem.initialiseSolution(currentIndex);
+        oProblem.copySolution(currentIndex, BEST_ACCEPTED_INDEX);
+
+        double currentCost = oProblem.getFunctionValue(currentIndex);
 
         // cache indices of crossover heuristics
         boolean[] isCrossover = new boolean[numberOfHeuristics];
         Arrays.fill(isCrossover, false);
+
         for (int i : oProblem.getHeuristicsOfType(ProblemDomain.HeuristicType.CROSSOVER)) {
+
             isCrossover[i] = true;
         }
 
+        // main search loop
         double candidateCost;
-
         while (!hasTimeExpired()) {
-            int[] perm = createRandomPermutation(numberOfHeuristics);
+            int bstValue = heuristicScores[0];
+            int h = 0;
             for (int i = 0; i < numberOfHeuristics; i++) {
-                int h = perm[i];
-                if (isCrossover[h]) {
-                    candidateCost = oProblem.applyHeuristic(h, currentIndex, BEST_ACCEPTED_INDEX, candidateIndex);
+                if (heuristicScores[i] < bstValue) {
+                    bstValue = heuristicScores[i];
+                    h = i;
+                }
+            }
+            if (isCrossover[h]) {
+                if (rng.nextBoolean()) {
+                    // randomly choose between crossover with newly initialised solution
+                    oProblem.initialiseSolution(SECOND_PARENT_INDEX);
+                    candidateCost = oProblem.applyHeuristic(h, currentIndex, SECOND_PARENT_INDEX, candidateIndex);
                 } else {
-                    candidateCost = oProblem.applyHeuristic(h, currentIndex, candidateIndex);
+                    // or with best solution accepted so far
+                    candidateCost = oProblem.applyHeuristic(h, currentIndex, BEST_ACCEPTED_INDEX, candidateIndex);
                 }
-                double delta = candidateCost - currentCost;
-                double r = rng.nextDouble();
-                double P = Math.pow(Math.E, -delta / currentTemperature);
-                if (delta < 0 || r < P) {
-                    oProblem.copySolution(candidateIndex, currentIndex);
-                    if (candidateCost < ((UZFDomain) oProblem).getBestSolutionValue()) {
-                        oProblem.copySolution(candidateIndex, BEST_ACCEPTED_INDEX);
-                    }
-                    currentCost = candidateCost;
-                }
-                advanceTemperature();
+            } else {
+                candidateCost = oProblem.applyHeuristic(h, currentIndex, candidateIndex);
+            }
+
+            // update best
+            if (candidateCost < currentCost) {
+                oProblem.copySolution(candidateIndex, BEST_ACCEPTED_INDEX);
+            }
+
+            // accept improving or equal moves
+            if (candidateCost <= currentCost) {
+                heuristicScores[h]++;
+
+                currentCost = candidateCost;
+                currentIndex = 1 - currentIndex;
+                candidateIndex = 1 - candidateIndex;
+            } else {
+                heuristicScores[h]--;
             }
         }
+
         UAVSolutionInterface oSolution = ((UZFDomain) oProblem).getBestSolution();
         SolutionPrinter oSolutionPrinter = new SolutionPrinter("out.csv");
         oSolutionPrinter
                 .printSolution(((UZFDomain) oProblem).getLoadedInstance().getSolutionAsListOfLocations(oSolution));
     }
 
-    private int[] createRandomPermutation(int numberOfHeuristics) {
-        int[] permutation = new int[numberOfHeuristics];
-        for (int i = 0; i < numberOfHeuristics; i++) {
-            permutation[i] = i;
-        }
-        java.util.Collections.shuffle(Arrays.asList(permutation));
-        return permutation;
-    }
-
     @Override
     public String toString() {
+
         return "SL_HH";
     }
 }
