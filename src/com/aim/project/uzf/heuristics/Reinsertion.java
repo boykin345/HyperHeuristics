@@ -40,7 +40,6 @@ public class Reinsertion extends HeuristicOperators implements HeuristicInterfac
 
 		// Update the solution representation with the modified array
 		solution.getSolutionRepresentation().setSolutionRepresentation(solutions_array);
-
 		return solution.getObjectiveFunctionValue();
 	}
 

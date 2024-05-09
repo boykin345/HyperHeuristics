@@ -30,7 +30,9 @@ public class SolutionRepresentation implements SolutionRepresentationInterface {
 
     @Override
     public SolutionRepresentationInterface clone() {
-        return new SolutionRepresentation(this.solutionRepresentation);
+        int[] clonedArray = new int[solutionRepresentation.length];
+        System.arraycopy(solutionRepresentation, 0, clonedArray, 0, solutionRepresentation.length);
+        return new SolutionRepresentation(clonedArray);
     }
 
 }

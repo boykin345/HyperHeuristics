@@ -4,6 +4,7 @@ import AbstractClasses.HyperHeuristic;
 import AbstractClasses.ProblemDomain;
 import com.aim.project.uzf.SolutionPrinter;
 import com.aim.project.uzf.UZFDomain;
+import com.aim.project.uzf.heuristics.HeuristicOperators;
 import com.aim.project.uzf.interfaces.UAVSolutionInterface;
 
 import java.util.Arrays;
@@ -46,12 +47,14 @@ public class SL_HH extends HyperHeuristic {
         // main search loop
         double candidateCost;
         while (!hasTimeExpired()) {
-            int bstValue = heuristicScores[0];
-            int h = 0;
-            for (int i = 0; i < numberOfHeuristics; i++) {
-                if (heuristicScores[i] < bstValue) {
-                    bstValue = heuristicScores[i];
-                    h = i;
+            int tournamentSize = rng.nextInt(numberOfHeuristics);
+            int[] tournament = createRandomPermutation(numberOfHeuristics);
+            int bstScore = heuristicScores[tournament[0]];
+            int h = tournament[0];
+            for (int i = 0; i < tournamentSize; i++) {
+                if (heuristicScores[tournament[i]] < bstScore) {
+                    h = tournament[i];
+                    bstScore = heuristicScores[tournament[i]];
                 }
             }
             if (isCrossover[h]) {
@@ -71,11 +74,8 @@ public class SL_HH extends HyperHeuristic {
             if (candidateCost < currentCost) {
                 oProblem.copySolution(candidateIndex, BEST_ACCEPTED_INDEX);
             }
-
-            // accept improving or equal moves
             if (candidateCost <= currentCost) {
                 heuristicScores[h]++;
-
                 currentCost = candidateCost;
                 currentIndex = 1 - currentIndex;
                 candidateIndex = 1 - candidateIndex;
@@ -88,6 +88,20 @@ public class SL_HH extends HyperHeuristic {
         SolutionPrinter oSolutionPrinter = new SolutionPrinter("out.csv");
         oSolutionPrinter
                 .printSolution(((UZFDomain) oProblem).getLoadedInstance().getSolutionAsListOfLocations(oSolution));
+    }
+
+    public int[] createRandomPermutation(int length) {
+        int[] permutation = new int[length];
+        for (int i = 0; i < length; i++) {
+            permutation[i] = i;
+        }
+        for (int i = 0; i < length; i++) {
+            int swapIndex = rng.nextInt(length);
+            int temp = permutation[i];
+            permutation[i] = permutation[swapIndex];
+            permutation[swapIndex] = temp;
+        }
+        return permutation;
     }
 
     @Override

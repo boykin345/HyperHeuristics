@@ -58,7 +58,6 @@ public class PMX implements XOHeuristicInterface {
 		}
 
 		offspring.getSolutionRepresentation().setSolutionRepresentation(child);
-
 		return offspring.getObjectiveFunctionValue();
 
 	}

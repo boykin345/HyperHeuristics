@@ -47,9 +47,11 @@ public class UZFInstance implements UZFInstanceInterface {
 			int firstIndex = random.nextInt(numberOfLocations - 1);
 			solutionArray[0] = firstIndex;
 			solutionArray[firstIndex] = 0;
+			// sort the locations based on the distance to the first location
 			for (int i = 1; i < numberOfLocations; i++) {
 				double minDistance = oObjectiveFunction.getCost(solutionArray[i - 1], solutionArray[i]);
 				int minIndex = i;
+				// find the location with the minimum distance to the previous location
 				for (int j = i + 1; j < numberOfLocations; j++) {
 					double distance = oObjectiveFunction.getCost(solutionArray[i - 1], solutionArray[j]);
 					if (distance < minDistance) {
